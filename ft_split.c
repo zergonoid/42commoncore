@@ -5,74 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/14 15:48:29 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/14 18:42:59 by skioridi         ###   ########.fr       */
+/*   Created: 2023/04/14 13:24:38 by astein            #+#    #+#             */
+/*   Updated: 2023/04/14 21:20:45 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// #include <stdio.h>
-
-int	get_wordno(char *str, char c)
+static int	cnt_wrds(char const *s, char c)
 {
-	int	w;
+	int	cnt;
 
-	w = 0;
-	while (*str)
+	cnt = 0;
+	while (*s)
 	{
-		while (*str != c)
-			str++;
-		w++;
+		if (*s != c)
+		{
+			cnt++;
+			while (*s && *s != c)
+				s++;
+		}
+		else
+			s++;
 	}
-	return (w);
+	return (cnt);
 }
 
-char	*wordpaste(char *word, char *full, char c)
+int	wdlen(const char *s, char c)
 {
-	while (*full != c)
-	{
-		*word = *full;
-		full++;
-		word++;
-	}
-	*word = 0;
-	return (full);
-}
-
-int	get_next_wordlen(char *full, char c)
-{
-	int	len;
+	size_t	len;
 
 	len = 0;
-	while (*full != c)
+	while (s[len] && s[len] != c)
 		len++;
 	return (len);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**new;
-	char	*trim;
-	int		wordno;
-	int		wordlen;
+	char	**res;
+	int		w;
 	int		i;
+	int		len;
 
-	i = 0;
-	trim = ft_strtrim(s, &c);
-	wordno = get_wordno(trim, c);
-	wordlen = get_next_wordlen(trim, c);
-	new = malloc(wordno + 1);
-	if (!new)
+	if (!s)
 		return (NULL);
-	while (i <= wordno)
+	w = cnt_wrds(s, c);
+	res = malloc(sizeof(char *) * (w + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (i < w)
 	{
-		new[i] = malloc(wordlen + 1);
-		if (!new[i])
+		while (*s == c && *s != '\0')
+			s++;
+		len = wdlen(s, c);
+		res[i] = ft_substr(s, 0, len);
+		if (!res[i])
 			return (NULL);
-		trim = wordpaste(new[i], trim, c);
+		s += len;
 		i++;
 	}
-	new[i] = 0;
-	return (new);
+	res[w] = NULL;
+	return (res);
 }
