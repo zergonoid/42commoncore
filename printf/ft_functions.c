@@ -6,20 +6,19 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:04:34 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/27 22:35:12 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/04/28 00:24:31 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	*ft_putlchar(char c, int *len)
+void	ft_putlchar(char c, int *len)
 {
 	write(1, &c, 1);
 	(*len)++;
-	return (len);
 }
 
-int	*ft_putlnbr(int nb, int *len)
+void	ft_putlnbr(int nb, int *len)
 {
 	if (nb == -2147483648)
 	{
@@ -38,51 +37,38 @@ int	*ft_putlnbr(int nb, int *len)
 		ft_putlnbr(nb % 10, len);
 	}
 	else
-	{
 		ft_putlchar(nb + '0', len);
-	}
-	return (len);
 }
 
-int	*ft_putlhex(int nb, char *hex, int *len)
+void	ft_putluns(unsigned int nb, int *len)
 {
-	if (nb == -2147483648)
-	{
-		ft_putlchar('-', len);
-		ft_putlchar(hex[2], len);
-		nb = 147483648;
-	}
-	if (nb < 0)
-	{
-		ft_putlchar('-', len);
-		nb = -nb;
-	}
 	if (nb >= 10)
 	{
-		ft_putlnbr(nb / 16, len);
-		ft_putlnbr(nb % 16, len);
+		ft_putluns(nb / 10, len);
+		ft_putluns(nb % 10, len);
+	}
+	else
+		ft_putlchar(nb + '0', len);
+}
+
+void	ft_putlhex(long unsigned int nb, char *hex, int *len)
+{
+	if (nb / 16 == 0)
+	{
+		ft_putlchar(hex[nb % 16], len);
+		return ;
 	}
 	else
 	{
-		ft_putlchar(hex[nb + '0'], len);
+		ft_putlhex(nb / 16, hex, len);
+		ft_putlchar(hex[nb % 16], len);
 	}
-	return (len);
 }
 
-int	*ft_putlstr(char *s, int *len)
+void	ft_callputlhex(unsigned int nb, char *hex, int *len)
 {
-	int	i;
+	long unsigned int	n;
 
-	i = -1;
-	while (s[++i] != '\0')
-		write(1, &s[i], 1);
-	*len += i;
-	return (len);
-}
-
-int	*ft_putladd(size_t add, int *len)
-{
-	ft_putlstr("0x", len);
-	ft_putlhex(add, HEXS, len);
-	return (len);
+	n = nb;
+	ft_putlhex(n, hex, len);
 }

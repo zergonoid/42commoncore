@@ -6,33 +6,33 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:44:59 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/27 22:34:15 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/04/28 00:23:47 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-int	*ft_conversions(char c, va_list ap, int *len)
+void	ft_conversions(char c, va_list ap, int *len)
 {
 	if (c == 'c')
 		ft_putlchar(va_arg(ap, int), len);
 	if (c == 's')
 		ft_putlstr(va_arg(ap, char *), len);
 	if (c == 'p')
-		ft_putladd(va_arg(ap, size_t), len);
+		ft_putladd(va_arg(ap, unsigned long), len);
 	if (c == 'd')
 		ft_putlnbr(va_arg(ap, int), len);
-	// if (c == 'i')
-	// 	ft_put(c);
-	// if (c == 'u')
-	// 	ft_put(c);
+	if (c == 'i')
+		ft_putlnbr(va_arg(ap, int), len);
+	if (c == 'u')
+		ft_putluns(va_arg(ap, unsigned int), len);
 	if (c == 'x')
-		ft_putlhex(va_arg(ap, int), HEXS, len);
+		ft_callputlhex(va_arg(ap, unsigned int), HEXS, len);
 	if (c == 'X')
-		ft_putlhex(va_arg(ap, int), HEXL, len);
+		ft_callputlhex(va_arg(ap, unsigned int), HEXL, len);
 	if (c == '%')
 		ft_putlchar('%', len);
-	return (len);
 }
 
 int	ft_printf(const char *s, ...)
@@ -47,7 +47,7 @@ int	ft_printf(const char *s, ...)
 	while (s[++i])
 	{
 		if (s[i] == '%')
-			len = *ft_conversions(s[++i], ap, &len);
+			ft_conversions(s[++i], ap, &len);
 		else
 			ft_putlchar(s[i], &len);
 	}
@@ -59,6 +59,8 @@ int	ft_printf(const char *s, ...)
 // {
 // 	int	l;
 
-// 	l = ft_printf("print a: %c", 'l');
+// 	l = ft_printf("print hex of -123: %x", -123);
 // 	ft_printf("\n%d", l);
+// 	l = printf("print hex of -123: %x", -123);
+// 	printf("\n%d", l);
 // }
