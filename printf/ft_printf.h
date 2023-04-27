@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:52:12 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/28 00:23:23 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/04/28 00:28:50 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 int		ft_printf(const char *s, ...);
 void	ft_conversions(char c, va_list ap, int *len);
 void	ft_putlchar(char c, int *len);
-void	ft_putlnbr(int nb, int *len);
+void	ft_putlnbr(long int nb, int *len);
 void	ft_putlhex(long unsigned int nb, char *hex, int *len);
 void	ft_callputlhex(unsigned int nb, char *hex, int *len);
 void	ft_putlstr(char *s, int *len);

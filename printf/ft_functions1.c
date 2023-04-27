@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:10:50 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/28 00:24:29 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/04/28 00:26:36 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	ft_putlstr(char *s, int *len)
 	}
 	i = -1;
 	while (s[++i] != '\0')
-		write(1, &s[i], 1);
-	*len += i;
+		ft_putlchar(s[i], len);
 }
 
 void	ft_putladd(unsigned long add, int *len)

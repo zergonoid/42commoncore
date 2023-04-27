@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 19:04:34 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/28 00:24:31 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/04/28 00:28:37 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,8 @@ void	ft_putlchar(char c, int *len)
 	(*len)++;
 }
 
-void	ft_putlnbr(int nb, int *len)
+void	ft_putlnbr(long int nb, int *len)
 {
-	if (nb == -2147483648)
-	{
-		ft_putlchar('-', len);
-		ft_putlchar('2', len);
-		nb = 147483648;
-	}
 	if (nb < 0)
 	{
 		ft_putlchar('-', len);
