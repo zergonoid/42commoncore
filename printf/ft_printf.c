@@ -6,12 +6,11 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:44:59 by skioridi          #+#    #+#             */
-/*   Updated: 2023/04/28 00:29:22 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:08:36 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	ft_conversions(char c, va_list ap, int *len)
 {
@@ -54,13 +53,3 @@ int	ft_printf(const char *s, ...)
 	va_end(ap);
 	return (len);
 }
-
-// int	main(void)
-// {
-// 	int	l;
-
-// 	l = ft_printf("print hex of -123: %x", -123);
-// 	ft_printf("\n%d", l);
-// 	l = printf("print hex of -123: %x", -123);
-// 	printf("\n%d", l);
-// }

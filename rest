@@ -1,0 +1,9 @@
+printf my main int	main(void)
+{
+	int	l;
+
+	l = ft_printf("ft_printf : %s", "unreal;");
+	ft_printf(" %d\n", l);
+	l = printf("printf : %s", "unreal;");
+	printf(" %d\n", l);
+}
