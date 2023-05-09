@@ -6,16 +6,16 @@
 /*   By: steffi <steffi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:53:25 by steffi            #+#    #+#             */
-/*   Updated: 2023/05/09 15:05:31 by steffi           ###   ########.fr       */
+/*   Updated: 2023/05/09 17:11:21 by steffi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *str)
+int	ft_findsize(const char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (str[i])
+	while (str[i] != '\n')
 		i++;
 	return (i);
 }
