@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:53:22 by skioridi          #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:26 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:25:10 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_next_line(int fd)
 
 	line = NULL;
 	r = 1;
-	if (fd < 0 || read(fd, 0, 0) <= 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
 	{
 		r = -1;
 		while (buffer[++r])
@@ -33,6 +33,8 @@ char	*get_next_line(int fd)
 			r = read(fd, buffer, BUFFER_SIZE);
 		if (r > 0)
 			line = ft_join_nl(line, buffer);
+		if (!line)
+			return (NULL);
 		if (nlcheck(buffer))
 			break ;
 	}

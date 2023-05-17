@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:53:25 by skioridi          #+#    #+#             */
-/*   Updated: 2023/05/17 18:03:07 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:31:17 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ size_t	ft_strlen_nl(char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	while (str[i] || str[i] != '\n')
+	while (str[i] != '\0' && str[i] != '\n')
 		i++;
 	return (i + (str[i] == '\n'));
 }
@@ -33,15 +33,18 @@ char	*ft_join_nl(char *line, char *buffer)
 	new = (char *)malloc(ft_strlen_nl(line) + ft_strlen_nl(buffer) + 1);
 	if (!new)
 		return (NULL);
-	i = -1;
-	j = -1;
-	while ((++i < ft_strlen_nl(line)) && line)
+	i = 0;
+	j = 0;
+	while (line && line[i] && line[i] != '\n')
+	{
 		new[i] = line[i];
-	while ((++j < ft_strlen_nl(buffer)) && buffer)
-		new[i + j] = buffer[j];
+		i++;
+	}
+	while (buffer && buffer[j] && buffer[j] != '\n')
+		new[i++] = buffer[j++];
 	if (buffer[j] == '\n')
-		new[++i + j] = '\n';
-	new[++i + j] = '\0';
+		new[i++] = '\n';
+	new[i] = '\0';
 	free(line);
 	return (new);
 }
@@ -55,7 +58,7 @@ int	nlcheck(char *buffer)
 	found = 0;
 	i = 0;
 	j = 0;
-	while (buffer[i] != '\n' && buffer[i])
+	while (buffer[i] != '\n' && buffer[i] != '\0')
 		buffer[i++] = '\0';
 	if (buffer[i] == '\n')
 	{
