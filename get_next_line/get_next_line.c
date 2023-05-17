@@ -14,27 +14,49 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*next_line;
-	char		*temp;
+	static char	*buffer;
+	char		*line;
 	int			i;
+	int 		pos;
 
-	if (fd < 0)
+	if (fd < 0 || read(fd, 0, 0) == 0 || BUFFER_SIZE < 1 )
+	{
+		ft_bzero(buffer, BUFFER_SIZE);
 		return (NULL);
-	temp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	read(fd, temp, BUFFER_SIZE);
-	ft_findsize(temp);
-	while (temp[++i] != '\n')
-		next_line[i] = temp[i];
-	next_line[i] = '\0';
-	return (next_line);
+	}
+	buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	pos = -1;
+	line = NULL;
+	while (pos == -1)
+	{
+		read(fd, buffer, BUFFER_SIZE);
+		ft_strjoin(line, buffer);
+		pos = ft_findnew(buffer);
+	}
+	buffer = &buffer[pos + 1];
+	return (line);
 }
 
-
-int	main()
+int	main(void)
 {
+	int		fd;
+	char	*line;
+	int		check;
 
-
-	printf(get_next_line(text.txt));
-	printf(get_next_line(text.txt));
-	printf(get_next_line(text.txt));
+	check = 1;
+	fd = open("text.txt", O_RDONLY);
+	printf("\nBuff_size: %d\n", BUFFER_SIZE);
+	while (check)
+	{
+		line = get_next_line(fd);
+		if (!line)
+		{
+			check = 0;
+			printf("\n");
+		}
+		printf("Line: %s", line);
+		free(line);
+	}
 }

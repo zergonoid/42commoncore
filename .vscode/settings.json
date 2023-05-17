@@ -2,5 +2,11 @@
   "editor.defaultFormatter": "keyhr.42-c-format",
   "editor.formatOnSave": true,
   "editor.insertSpaces": false,
-  "editor.tabSize": 4
+  "editor.tabSize": 4,
+  "files.associations": {
+    "stdio.h": "c",
+    "fcntl.h": "c",
+    "stdlib.h": "c",
+    "get_next_line.h": "c"
+  }
 }
