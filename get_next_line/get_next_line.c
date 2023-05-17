@@ -55,6 +55,7 @@ int		checkfd(int fd, char *buffer)
 	}
 	return (1);
 }
+
 int	main(void)
 {
 	int		fd;
