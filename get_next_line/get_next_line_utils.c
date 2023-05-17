@@ -6,62 +6,66 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:53:25 by skioridi          #+#    #+#             */
-/*   Updated: 2023/05/17 16:22:52 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:03:07 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_findnew(char *str)
+size_t	ft_strlen_nl(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (str[i] != '\n' || str[i])
+	if (!str)
+		return (0);
+	while (str[i] || str[i] != '\n')
 		i++;
-	if (str[i] == '\n')
-		return (i);
-	return (-1);
+	return (i + (str[i] == '\n'));
 }
 
-void	ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*t;
-
-	i = -1;
-	t = s;
-	while (++i < n)
-		t[i] = '\0';
-}
-
-size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = -1;
-	while (str[++i])
-		;
-	return (i);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_join_nl(char *line, char *buffer)
 {
 	char	*new;
-	size_t	newlen;
 	size_t	i;
 	size_t	j;
 
-	newlen = ft_strlen(s1) + ft_strlen(s2);
-	new = malloc(newlen + 1);
+	new = (char *)malloc(ft_strlen_nl(line) + ft_strlen_nl(buffer) + 1);
 	if (!new)
 		return (NULL);
 	i = -1;
 	j = -1;
-	while (++i < ft_strlen(s1))
-		new[i] = s1[i];
-	while (++j < ft_strlen(s2))
-		new[i + j] = s2[j];
-	new[i + j] = 0;
-	return (&new[i + j]);
+	while ((++i < ft_strlen_nl(line)) && line)
+		new[i] = line[i];
+	while ((++j < ft_strlen_nl(buffer)) && buffer)
+		new[i + j] = buffer[j];
+	if (buffer[j] == '\n')
+		new[++i + j] = '\n';
+	new[++i + j] = '\0';
+	free(line);
+	return (new);
+}
+
+int	nlcheck(char *buffer)
+{
+	int	i;
+	int	j;
+	int	found;
+
+	found = 0;
+	i = 0;
+	j = 0;
+	while (buffer[i] != '\n' && buffer[i])
+		buffer[i++] = '\0';
+	if (buffer[i] == '\n')
+	{
+		found = 1;
+		buffer[i++] = '\0';
+		while (buffer[i])
+		{
+			buffer[j++] = buffer[i];
+			buffer[i++] = '\0';
+		}
+	}
+	return (found);
 }

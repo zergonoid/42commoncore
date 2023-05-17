@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:53:22 by skioridi          #+#    #+#             */
-/*   Updated: 2023/05/17 16:22:46 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:03:26 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,29 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	buffer[BUFFER_SIZE + 1];
 	char		*line;
-	int			i;
-	int			pos;
 	int			r;
 
-	if (!checkfd(fd, buffer))
-		return (NULL);
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	pos = -1;
-	i = -1;
 	line = NULL;
-	buffer = NULL;
-	while (pos == -1)
+	r = 1;
+	if (fd < 0 || read(fd, 0, 0) <= 0 || BUFFER_SIZE < 1)
 	{
-		r = read(fd, buffer, BUFFER_SIZE);
-		if (!r)
-			return (NULL);
-		pos = ft_findnew(buffer);
-		if (pos == -1)
-			line = ft_strjoin(line, buffer);
-		else
-		{
-			while (++i <= pos)
-			{
-				*line = buffer[i];
-				line++;
-			}
-		}
+		r = -1;
+		while (buffer[++r])
+			buffer[r] = 0;
+		return (NULL);
 	}
-	buffer = &buffer[pos + 1];
+	while (r > 0)
+	{
+		if (!buffer[0])
+			r = read(fd, buffer, BUFFER_SIZE);
+		if (r > 0)
+			line = ft_join_nl(line, buffer);
+		if (nlcheck(buffer))
+			break ;
+	}
 	return (line);
-}
-
-int	checkfd(int fd, char *buffer)
-{
-	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE < 1)
-	{
-		ft_bzero(buffer, BUFFER_SIZE);
-		return (0);
-	}
-	return (1);
 }
 
 // int	main(void)

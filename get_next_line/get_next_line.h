@@ -6,7 +6,7 @@
 /*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 01:53:27 by skioridi          #+#    #+#             */
-/*   Updated: 2023/05/17 16:26:38 by skioridi         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:03:09 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@
 # include <unistd.h>
 
 char	*get_next_line(int fd);
-int		checkfd(int fd, char *buffer);
-void	ft_bzero(void *s, size_t n);
-int		ft_findnew(char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
-size_t	ft_strlen(const char *str);
+int		nlcheck(char *buffer);
+char	*ft_join_nl(char *line, char *buffe);
+size_t	ft_strlen_nl(char *str);
 
 #endif
