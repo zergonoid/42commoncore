@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: steffi <steffi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skioridi <skioridi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 01:53:25 by steffi            #+#    #+#             */
-/*   Updated: 2023/05/09 17:11:21 by steffi           ###   ########.fr       */
+/*   Created: 2023/05/03 01:53:25 by skioridi          #+#    #+#             */
+/*   Updated: 2023/05/17 16:22:52 by skioridi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_findnew(const char *str)
+int	ft_findnew(char *str)
 {
 	int	i;
 
@@ -41,6 +41,7 @@ size_t	ft_strlen(const char *str)
 
 	i = -1;
 	while (str[++i])
+		;
 	return (i);
 }
 
