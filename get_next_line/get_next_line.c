@@ -19,26 +19,42 @@ char	*get_next_line(int fd)
 	int			i;
 	int 		pos;
 
-	if (fd < 0 || read(fd, 0, 0) == 0 || BUFFER_SIZE < 1 )
-	{
-		ft_bzero(buffer, BUFFER_SIZE);
+	if (!checkfd(fd, buffer))
 		return (NULL);
-	}
 	buffer = malloc(sizeof(char *) * (BUFFER_SIZE + 1));
 	if (!buffer)
 		return (NULL);
 	pos = -1;
+	i = -1;
 	line = NULL;
 	while (pos == -1)
 	{
 		read(fd, buffer, BUFFER_SIZE);
-		ft_strjoin(line, buffer);
 		pos = ft_findnew(buffer);
+		if (pos == -1)
+			line = ft_strjoin(line, buffer);
+		else
+		{
+			while (++i <= pos)
+			{
+				*line = buffer[i];
+				*line++;
+			}
+		}
 	}
 	buffer = &buffer[pos + 1];
 	return (line);
 }
 
+int		checkfd(int fd, char *buffer)
+{
+	if (fd < 0 || read(fd, 0, 0) == 0 || BUFFER_SIZE < 1 )
+	{
+		ft_bzero(buffer, BUFFER_SIZE);
+		return (0);
+	}
+	return (1);
+}
 int	main(void)
 {
 	int		fd;
