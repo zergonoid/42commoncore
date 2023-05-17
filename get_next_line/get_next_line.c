@@ -28,3 +28,13 @@ char	*get_next_line(int fd)
 	next_line[i] = '\0';
 	return (next_line);
 }
+
+
+int	main()
+{
+
+
+	printf(get_next_line(text.txt));
+	printf(get_next_line(text.txt));
+	printf(get_next_line(text.txt));
+}
