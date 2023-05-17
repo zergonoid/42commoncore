@@ -1,13 +1,14 @@
-a 
-b
-c
+steffi
+tomas
+and other people as well
 
-a\nb\nc\0
+ste ffi \nto 
 
-b\nc\0
+ mas \nan
 
-c\0
+0123
+ste
 
-
-static needs to move to after the next newline
-
+012
+000
+0
