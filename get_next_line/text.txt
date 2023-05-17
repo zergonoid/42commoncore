@@ -1,3 +1,13 @@
-aaaaaaaaaaa 
-bbbbbbbbbbbb
-cccccccccc
+a 
+b
+c
+
+a\nb\nc\0
+
+b\nc\0
+
+c\0
+
+
+static needs to move to after the next newline
+
